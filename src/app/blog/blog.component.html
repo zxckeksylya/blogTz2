@@ -1,0 +1,13 @@
+{{publication.title}}
+<div *ngFor="let p of coments">
+    <span>{{p.textOfComent}}</span>
+    <br>
+    <button class="button" (click)="remove(p)">remove</button>
+</div>
+
+<input #comentText>
+<button (click)="saveComent(comentText.value)">
+    добавить коментарий
+</button>
+
+<button (click)="goBack()"> back</button>
