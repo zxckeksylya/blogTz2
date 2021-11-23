@@ -15,14 +15,14 @@ interface CreateResponse{
 @Injectable({
     providedIn:"root"
 })
-export class PublicationsService{
+export class DataService{
     static url = 'https://angulartzblog-default-rtdb.europe-west1.firebasedatabase.app'
     //response:any;
 
     constructor(private http:HttpClient){}
 
     getPublications():Observable<Publication[]>{
-        return this.http.get<Publication[]>(`${PublicationsService.url}/Publications.json`).pipe(map(publications =>{
+        return this.http.get<Publication[]>(`${DataService.url}/Publications.json`).pipe(map(publications =>{
             if(!publications){
                 return[]
             }
@@ -30,20 +30,20 @@ export class PublicationsService{
         }))
     }
     savePublication(publication:Publication):Observable<Publication>{
-        return this.http.post<CreateResponse>(`${PublicationsService.url}/Publications.json`,publication)
+        return this.http.post<CreateResponse>(`${DataService.url}/Publications.json`,publication)
         .pipe(map(res=>{
             return{...publication, id:res.name}
         }))
     }
 
     removePublication(publication:Publication):Observable<void>{
-         return this.http.delete<void>(`${PublicationsService.url}/Publications/${publication.id}.json`)
+         return this.http.delete<void>(`${DataService.url}/Publications/${publication.id}.json`)
     }
     removeAllComentsOfPublication(publication:Publication):Observable<void>{
-        return this.http.delete<void>(`${PublicationsService.url}/Coments/${publication.id}.json`)
+        return this.http.delete<void>(`${DataService.url}/Coments/${publication.id}.json`)
     }
     getComments(publication:Publication):Observable<Coment[]>{
-        return this.http.get<Coment[]>(`${PublicationsService.url}/Coments/${publication.id}.json`)
+        return this.http.get<Coment[]>(`${DataService.url}/Coments/${publication.id}.json`)
         .pipe(map(comensts =>{
             if(!comensts){
                 return []
@@ -53,16 +53,16 @@ export class PublicationsService{
     }
 
     saveComment(publication:Publication,coment:Coment):Observable<Coment>{
-        return this.http.post<CreateResponse>(`${PublicationsService.url}/Coments/${publication.id}.json`,coment).pipe(map(res=>{
+        return this.http.post<CreateResponse>(`${DataService.url}/Coments/${publication.id}.json`,coment).pipe(map(res=>{
             return{...coment, id:res.name}
         }))
     }
     removeComment(publication:Publication,coment:Coment):Observable<void>{
-        return this.http.delete<void>(`${PublicationsService.url}/Coments/${publication.id}/${coment.id}.json`)
+        return this.http.delete<void>(`${DataService.url}/Coments/${publication.id}/${coment.id}.json`)
     }
 
     getUsers():Observable<User[]>{
-        return this.http.get<User[]>(`${PublicationsService.url}/Users.json`).pipe(map(users => {
+        return this.http.get<User[]>(`${DataService.url}/Users.json`).pipe(map(users => {
             if(!users){
                 return []
             }
@@ -70,7 +70,7 @@ export class PublicationsService{
         }))
     }
     saveUser(user:User):Observable<User>{
-        return this.http.post<CreateResponse>(`${PublicationsService.url}/Users.json`,user).pipe(map(res=>{
+        return this.http.post<CreateResponse>(`${DataService.url}/Users.json`,user).pipe(map(res=>{
             return {...user,id:res.name}
         }))
     }

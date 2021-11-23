@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
 import { User} from "./user.model";
-import { PublicationsService } from './publications.service';
+import { DataService } from './data.service';
 
 @Injectable()
 export class UserRepository{
     private authUser:User = new User();
     private chekAuth=false;
     private users:User[]=[];
-    constructor(private dataSource:PublicationsService){
+    constructor(private dataSource:DataService){
         dataSource.getUsers().subscribe(data =>{
             this.users=data
         })

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { PublicationRepository } from '../model/publication.repository';
 import { Publication } from '../model/publication.model';
 import { Coment } from '../model/coment.model';
-import { PublicationsService } from '../model/publications.service';
+import { DataService } from '../model/data.service';
 import { UserRepository } from '../model/user.repository';
 
 @Component({
@@ -18,9 +18,9 @@ export class BlogComponent{
     comets:Coment[]=[];
     form:FormGroup
 
-    constructor(private repositry: PublicationRepository,private router:Router,activeRoute:ActivatedRoute,private publicationsService:PublicationsService,private userRepository:UserRepository){
+    constructor(private repositry: PublicationRepository,private router:Router,activeRoute:ActivatedRoute,private dataService:DataService,private userRepository:UserRepository){
         Object.assign(this.publication,repositry.getPublication(activeRoute.snapshot.params["id"]));
-        this.publicationsService.getComments(this.publication).subscribe(data=>{
+        this.dataService.getComments(this.publication).subscribe(data=>{
             this.comets=data;
         },
         err=>console.error(err))
@@ -34,7 +34,6 @@ export class BlogComponent{
      }
 
      get checkAuth():boolean{
-         console.log(this.userRepository.getCheckAuth())
         return this.userRepository.getCheckAuth()
     }
 
@@ -45,7 +44,7 @@ export class BlogComponent{
           textOfComent,
           idOfAuthor:this.userRepository.getAuthUser().id,
         }
-        this.publicationsService.saveComment(this.publication,coment).subscribe(
+        this.dataService.saveComment(this.publication,coment).subscribe(
             p=>this.comets.push(p),
             err=>console.error(err)
          )
@@ -57,7 +56,7 @@ export class BlogComponent{
     }
 
     remove(coment:Coment): void{
-        this.publicationsService.removeComment(this.publication,coment).subscribe(()=>{
+        this.dataService.removeComment(this.publication,coment).subscribe(()=>{
             this.comets=this.comets.filter(t=>t.id!==coment.id)
         });
     }

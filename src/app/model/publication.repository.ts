@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { PublicationsService } from './publications.service';
+import { DataService } from './data.service';
 import { Publication } from './publication.model';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class PublicationRepository{
     private publications: Publication[]=[];
     private categories:string[]=[];
 
-    constructor(private dataSource:PublicationsService){
+    constructor(private dataSource:DataService){
         dataSource.getPublications().subscribe(data =>{
             this.publications=data;
             this.categories = data.map(p=>p.category!)

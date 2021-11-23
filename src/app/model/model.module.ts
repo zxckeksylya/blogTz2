@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { PublicationRepository } from "./publication.repository";
-import { PublicationsService } from './publications.service';
+import { DataService } from './data.service';
 import { UserRepository } from './user.repository';
 
 @NgModule({
-    providers:[PublicationsService,PublicationRepository,UserRepository]
+    providers:[DataService,PublicationRepository,UserRepository]
 })
 export class ModelModule{}
