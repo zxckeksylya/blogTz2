@@ -26,8 +26,8 @@
 
 
     </div>
-    <footer>
-        <form (ngSubmit)="submit()" novalidate [formGroup]="form">
+    <footer >
+        <form *ngIf="checkAuth" (ngSubmit)="submit()" novalidate [formGroup]="form">
             <div class="form-group">
                 <label>Название</label>
                 <input class="form-control" name="title" formControlName="title">

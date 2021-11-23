@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { switchMap } from 'rxjs';
 import { Publication } from '../model/publication.model';
 import { PublicationRepository } from '../model/publication.repository';
+import { UserRepository } from '../model/user.repository';
 
 export interface Task{
     //id?:string
@@ -17,9 +18,10 @@ export interface Task{
 })
 export class ListComponent{
     public selectedCategory:any = null;
+
     form:FormGroup
     //publications:Publication[]=[]
-    constructor(private repository:PublicationRepository,private router:Router){ 
+    constructor(private repository:PublicationRepository,private router:Router,private userRepository:UserRepository){ 
         
         this.form=new FormGroup({
             "title": new FormControl('',Validators.required),
@@ -32,6 +34,9 @@ export class ListComponent{
         return this.repository.getPublications(this.selectedCategory)
     }
 
+    get checkAuth():boolean{
+        return this.userRepository.getCheckAuth()
+    }
     submit(){
         console.log(this.form)
         const {title,textOfBlog,category} = this.form.value;

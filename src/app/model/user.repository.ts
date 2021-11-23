@@ -34,4 +34,11 @@ export class UserRepository{
         }
         return false;
     }
+    getAuthUser():User{
+        return this.authUser;
+    }
+
+    getCheckAuth():boolean{
+        return this.chekAuth;
+    }
 }
