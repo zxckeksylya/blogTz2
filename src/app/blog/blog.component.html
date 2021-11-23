@@ -5,9 +5,19 @@
     <button class="button" (click)="remove(p)">remove</button>
 </div>
 
-<input #comentText>
-<button (click)="saveComent(comentText.value)">
-    добавить коментарий
-</button>
+<form *ngIf="checkAuth" (ngSubmit)="submit()" novalidate [formGroup]="form">
+    <div class="form-group">
+        <label>Коментарий</label>
+        <input class="form-control" name="textOfComent" formControlName="textOfComent">
+    </div>
+    <div class="form-group">
+        <button class="button"
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="form.invalid"
+        >Add</button>
+    </div>
+
+</form>
 
 <button (click)="goBack()"> back</button>
