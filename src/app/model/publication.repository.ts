@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { DataService } from './data.service';
 import { Publication } from './publication.model';
+import { Coment } from './coment.model';
 
 @Injectable()
 export class PublicationRepository{
@@ -10,6 +11,10 @@ export class PublicationRepository{
     constructor(private dataSource:DataService){
         dataSource.getPublications().subscribe(data =>{
             this.publications=data;
+            this.publications.forEach(p=>dataSource.getComments(p).subscribe(comentData=>{
+                this.publications.find(element=>p==element)!.coments=comentData
+            }))
+
             this.categories = data.map(p=>p.category!)
             .filter((c,index,array)=>array.indexOf(c)==index).sort();
         },err=>console.error(err))
@@ -17,6 +22,10 @@ export class PublicationRepository{
 
     getPublications(category:string):Publication[]{
         return this.publications.filter(p=>category==null ||category == p.category);
+    }
+
+    getComents(publication:Publication):Coment[]{
+        return publication.coments!
     }
 
     getPublication(id:string):Publication{
@@ -30,6 +39,9 @@ export class PublicationRepository{
             this.categories.push(data.category!);
         }},
         err=>console.error(err));
+    }
+    saveComent(Publication:Publication,coment:Coment){
+        this.publications[this.publications.findIndex(p=>p.id==Publication.id)].coments?.push(coment);
     }
 
     removePublicaton(publication:Publication){

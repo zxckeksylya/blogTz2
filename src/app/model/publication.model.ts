@@ -1,3 +1,4 @@
+import { Coment } from './coment.model';
 export class Publication{
     
     constructor(
@@ -7,6 +8,7 @@ export class Publication{
         public textOfBlog?:string,
         public countOfLikes?:number,
         public idOfAuthor?:string,
+        public coments?:Coment[],
         //public coments?:Coment[],
     ){}
 }

@@ -23,7 +23,7 @@ export class AuthComponent{
             login,
             password
         }
-        // console.log(this.repository.authenicate(user))
+        //  console.log(this.repository.authenicate(user))
         if(this.repository.authenicate(user)){
             this.router.navigateByUrl("/list")
         }else{

@@ -20,10 +20,7 @@ export class BlogComponent{
 
     constructor(private repositry: PublicationRepository,private router:Router,activeRoute:ActivatedRoute,private dataService:DataService,private userRepository:UserRepository){
         Object.assign(this.publication,repositry.getPublication(activeRoute.snapshot.params["id"]));
-        this.dataService.getComments(this.publication).subscribe(data=>{
-            this.comets=data;
-        },
-        err=>console.error(err))
+        Object.assign(this.coments,this.publication.coments);
         this.form=new FormGroup({
             "textOfComent": new FormControl('',Validators.required)
         })
@@ -45,7 +42,8 @@ export class BlogComponent{
           idOfAuthor:this.userRepository.getAuthUser().id,
         }
         this.dataService.saveComment(this.publication,coment).subscribe(
-            p=>this.comets.push(p),
+            p=>{this.comets.push(p);
+            this.repositry.saveComent(this.publication,p)},
             err=>console.error(err)
          )
         this.form.reset();

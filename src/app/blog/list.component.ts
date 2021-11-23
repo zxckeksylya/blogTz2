@@ -5,6 +5,7 @@ import { switchMap } from 'rxjs';
 import { Publication } from '../model/publication.model';
 import { PublicationRepository } from '../model/publication.repository';
 import { UserRepository } from '../model/user.repository';
+import { Coment } from '../model/coment.model';
 
 export interface Task{
     //id?:string
@@ -32,6 +33,10 @@ export class ListComponent{
 
     get publications():Publication[]{
         return this.repository.getPublications(this.selectedCategory)
+    }
+
+    getComents(publication:Publication):Coment[]{
+        return this.repository.getComents(publication)
     }
 
     get checkAuth():boolean{

@@ -16,6 +16,7 @@ export class UserRepository{
     authenicate(user:User):boolean{
         if(this.users.find(p=>((p.login==user.login)&&(p.password==user.password))!==undefined)){
             this.authUser=this.users.find(p=>p.login==user.login)!
+            console.log(this.authUser.login)
             this.chekAuth=true;
             return true;
         }

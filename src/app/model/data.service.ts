@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators'
 import { Task } from "../blog/list.component";
 import { Coment } from './coment.model';
 import { User } from "./user.model";
+import { Like } from "./like.model";
 
 
 interface CreateResponse{
@@ -40,10 +41,10 @@ export class DataService{
          return this.http.delete<void>(`${DataService.url}/Publications/${publication.id}.json`)
     }
     removeAllComentsOfPublication(publication:Publication):Observable<void>{
-        return this.http.delete<void>(`${DataService.url}/Coments/${publication.id}.json`)
+        return this.http.delete<void>(`${DataService.url}/Publications/${publication.id}/Coments.json`)
     }
     getComments(publication:Publication):Observable<Coment[]>{
-        return this.http.get<Coment[]>(`${DataService.url}/Coments/${publication.id}.json`)
+        return this.http.get<Coment[]>(`${DataService.url}/Publications/${publication.id}/Coments.json`)
         .pipe(map(comensts =>{
             if(!comensts){
                 return []
@@ -53,12 +54,12 @@ export class DataService{
     }
 
     saveComment(publication:Publication,coment:Coment):Observable<Coment>{
-        return this.http.post<CreateResponse>(`${DataService.url}/Coments/${publication.id}.json`,coment).pipe(map(res=>{
+        return this.http.post<CreateResponse>(`${DataService.url}/Publications/${publication.id}/Coments.json`,coment).pipe(map(res=>{
             return{...coment, id:res.name}
         }))
     }
     removeComment(publication:Publication,coment:Coment):Observable<void>{
-        return this.http.delete<void>(`${DataService.url}/Coments/${publication.id}/${coment.id}.json`)
+        return this.http.delete<void>(`${DataService.url}/Publications/${publication.id}/Coments/${coment.id}.json`)
     }
 
     getUsers():Observable<User[]>{
@@ -73,5 +74,21 @@ export class DataService{
         return this.http.post<CreateResponse>(`${DataService.url}/Users.json`,user).pipe(map(res=>{
             return {...user,id:res.name}
         }))
+    }
+    getLikes(publication:Publication):Observable<Like[]>{
+        return this.http.get<Like[]>(`${DataService.url}/Publications/${publication.id}/Likes.json`).pipe(map(likes =>{
+            if(!likes){
+                return[]
+            }
+            return Object.keys(likes).map(key => ({...likes[key as any],id:key}))
+        }))
+    }
+    saveLike(publication:Publication,like:Like):Observable<Like>{
+        return this.http.post<CreateResponse>(`${DataService.url}/Publications/${publication.id}/Likes.json`,like).pipe(map(res =>{
+            return {...like,id:res.name}
+        }))
+    }
+    removeLike(publication:Publication,like:Like):Observable<void>{
+        return this.http.delete<void>(`${DataService.url}/Publications/${publication.id}/Likes/${like.id}.json`)
     }
 }
