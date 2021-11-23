@@ -1,4 +1,5 @@
 import { Coment } from './coment.model';
+import { Like } from './like.model';
 export class Publication{
     
     constructor(
@@ -9,6 +10,6 @@ export class Publication{
         public countOfLikes?:number,
         public idOfAuthor?:string,
         public coments?:Coment[],
-        //public coments?:Coment[],
+        public likes?:Like[],
     ){}
 }

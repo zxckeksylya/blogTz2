@@ -14,7 +14,6 @@ export class PublicationRepository{
             this.publications.forEach(p=>dataSource.getComments(p).subscribe(comentData=>{
                 this.publications.find(element=>p==element)!.coments=comentData
             }))
-
             this.categories = data.map(p=>p.category!)
             .filter((c,index,array)=>array.indexOf(c)==index).sort();
         },err=>console.error(err))
@@ -40,16 +39,18 @@ export class PublicationRepository{
         }},
         err=>console.error(err));
     }
-    saveComent(Publication:Publication,coment:Coment){
-        this.publications[this.publications.findIndex(p=>p.id==Publication.id)].coments?.push(coment);
+    saveComent(publication:Publication,coment:Coment){
+        this.publications[this.publications.findIndex(p=>p.id==publication.id)].coments?.push(coment);
+    }
+    removeComent(publication:Publication){
+        this.publications[this.publications.findIndex(p=>p.id==publication.id)]=publication;
     }
 
     removePublicaton(publication:Publication){
         this.dataSource.removeAllComentsOfPublication(publication).subscribe(()=>{
-
         },err=>console.error(err))
         this.dataSource.removePublication(publication).subscribe(()=>{
-            this.publications=this.publications.filter(t=>t.id!==publication.id)
+            this.publications = this.publications.filter(t=>t.id!==publication.id)
             this.categories = this.publications.map(p=>p.category!)
             .filter((c,index,array)=>array.indexOf(c)==index).sort();
         },err=>console.error(err))
