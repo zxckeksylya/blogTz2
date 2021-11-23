@@ -2,7 +2,7 @@
 <div *ngFor="let p of coments">
     <span>{{p.textOfComent}}</span>
     <br>
-    <button class="button" (click)="remove(p)">remove</button>
+    <button *ngIf="checkAuth" class="button" (click)="remove(p)">remove</button>
 </div>
 
 <form *ngIf="checkAuth" (ngSubmit)="submit()" novalidate [formGroup]="form">

@@ -44,6 +44,7 @@ export class ListComponent{
           title,
           textOfBlog,
           category,
+          idOfAuthor:this.userRepository.getAuthUser().id,
         }
         this.repository.savePublication(publication);
         this.form.reset();

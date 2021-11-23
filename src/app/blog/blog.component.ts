@@ -43,6 +43,7 @@ export class BlogComponent{
         const {textOfComent} = this.form.value;
         const coment:Coment={
           textOfComent,
+          idOfAuthor:this.userRepository.getAuthUser().id,
         }
         this.publicationsService.saveComment(this.publication,coment).subscribe(
             p=>this.comets.push(p),

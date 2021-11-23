@@ -21,7 +21,7 @@
 
                
             </a>
-            <button class="button" (click)="remove(publication)">remove</button>
+            <button *ngIf="checkAuth" class="button" (click)="remove(publication)">remove</button>
         </div>
 
 

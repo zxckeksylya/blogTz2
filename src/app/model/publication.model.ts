@@ -6,6 +6,7 @@ export class Publication{
         public category?:string,
         public textOfBlog?:string,
         public countOfLikes?:number,
+        public idOfAuthor?:string,
         //public coments?:Coment[],
     ){}
 }
