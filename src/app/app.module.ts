@@ -12,6 +12,7 @@ import { BlogComponent } from './blog/blog.component';
 import { UserModule } from './auth/user.module';
 import { AuthComponent } from './auth/auth.component';
 import { UserRegComponent } from './auth/user-reg.component';
+import { ListFirstGuard } from './listFirst.guard';
 
 
 @NgModule({
@@ -27,14 +28,18 @@ import { UserRegComponent } from './auth/user-reg.component';
     ReactiveFormsModule,
     UserModule,
     RouterModule.forRoot([
-      { path: "list", component: ListComponent },
-      { path: "list/:id", component: BlogComponent },
-      { path: "login",component:AuthComponent},
-      { path: "register", component:UserRegComponent},
+      { path: "list", component: ListComponent ,
+      canActivate: [ListFirstGuard]},
+      { path: "list/:id", component: BlogComponent,
+      canActivate: [ListFirstGuard]},
+      { path: "login",component:AuthComponent,
+      canActivate: [ListFirstGuard]},
+      { path: "register", component:UserRegComponent,
+      canActivate: [ListFirstGuard]},
       { path: "**", redirectTo: "/list" },
     ]),
   ],
-  providers: [],
+  providers: [ListFirstGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
