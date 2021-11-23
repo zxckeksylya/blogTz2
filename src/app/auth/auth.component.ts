@@ -36,4 +36,8 @@ export class AuthComponent{
         this.router.navigateByUrl("/register");
     }
 
+    goBack(): void{
+        this.router.navigateByUrl("/list");
+    }
+
 }

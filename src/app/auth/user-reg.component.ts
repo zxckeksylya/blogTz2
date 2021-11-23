@@ -32,6 +32,10 @@ export class UserRegComponent{
             }
         }
 
+
+    }
+    goBack(): void{
+        this.router.navigateByUrl("/login");
     }
 
 }
