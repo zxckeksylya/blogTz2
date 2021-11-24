@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { DataService } from './data.service';
 import { Publication } from './publication.model';
 import { Coment } from './coment.model';
+import { Like } from "./like.model";
 
 @Injectable()
 export class PublicationRepository{
@@ -13,6 +14,9 @@ export class PublicationRepository{
             this.publications=data;
             this.publications.forEach(p=>dataSource.getComments(p).subscribe(comentData=>{
                 this.publications.find(element=>p==element)!.coments=comentData
+            }))
+            this.publications.forEach(p=>dataSource.getLikes(p).subscribe(likeData=>{
+                this.publications.find(element=>p==element)!.likes=likeData
             }))
             this.categories = data.map(p=>p.category!)
             .filter((c,index,array)=>array.indexOf(c)==index).sort();
@@ -46,6 +50,13 @@ export class PublicationRepository{
         this.publications[this.publications.findIndex(p=>p.id==publication.id)]=publication;
     }
 
+    saveLike(publication:Publication,like:Like){
+        this.publications[this.publications.findIndex(p=>p.id==publication.id)].likes?.push(like);
+    }
+
+    removeLike(publication:Publication){
+        this.publications[this.publications.findIndex(p=>p.id==publication.id)]=publication;
+    }
     removePublicaton(publication:Publication){
         this.dataSource.removeAllComentsOfPublication(publication).subscribe(()=>{
         },err=>console.error(err))

@@ -63,16 +63,30 @@ export class BlogComponent {
   goBack(): void {
     this.router.navigateByUrl('/list');
   }
-//   changeLike(): void {
-//        if(this.publication.likes?.find(p=>p.idOfAuthor==this.userRepository.getAuthUser().id)!==undefined){
-//            this.dataService.
-//        }
-//}
+  changeLike(): void {
+       if(this.publication.likes?.find(p=>p.idOfAuthor==this.userRepository.getAuthUser().id)==undefined){
+           const like:Like={
+            idOfAuthor: this.userRepository.getAuthUser().id
+           }
+           this.dataService.saveLike(this.publication,like).subscribe(
+               p=>{
+                this.repositry.saveLike(this.publication,p);
+               }
+         
+           )
+       }else{
+           const like:Like=this.publication.likes.find(p=>p.idOfAuthor==this.userRepository.getAuthUser().id)!
+           this.dataService.removeLike(this.publication,like).subscribe(()=>{
+               this.publication.likes=this.publication.likes!.filter(t=>t.id!==like.id);
+               this.repositry.removeLike(this.publication)
+           },err=>console.error(err))
+       }
+}
 
   remove(coment: Coment): void {
     this.dataService.removeComment(this.publication, coment).subscribe(() => {
         this.publication.coments = this.publication.coments!.filter((t) => t.id !== coment.id);
         this.repositry.removeComent(this.publication)
-    });
+    },err=>console.error(err));
   }
 }

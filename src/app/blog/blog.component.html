@@ -4,8 +4,9 @@
     <br>
     <button *ngIf="checkAuth" class="button" (click)="remove(p)">remove</button>
 </div>
-<!-- <label>количество лайков</label>
-{{countOfLikes}} -->
+<label>количество лайков</label>
+{{countOfLikes}}
+<button *ngIf="checkAuth" class="button" (click)="changeLike()">like</button>
 <form *ngIf="checkAuth" (ngSubmit)="submit()" novalidate [formGroup]="form">
     <div class="form-group">
         <label>Коментарий</label>
