@@ -1,54 +1,76 @@
-<div class="column-12 bg-base base-padding">Publications List</div>
-<div class="row">
-    <div class="column column-3 base-padding">
-        <button class="button max-large" (click)="changeCategory()">Home</button>
-        <button class="button max-large" *ngFor="let cat of categories" [class.active]="cat==selectedCategory"
-            (click)="changeCategory(cat)">{{cat}}</button>
+<section class="header">
+  <div class="row">
+    <div class="column-12 header__wrapper">
+      <h1 class="header__logo">Publications List</h1>
+      <a [routerLink]="['/login']" class="header__link">логин</a>
     </div>
-    <div class="column column-9 base-padding">
+  </div>
+</section>
 
-        <div class="outer" *ngFor="let publication of publications">
-            <a [routerLink]="['/list',publication.id]">
-                <h4>
-                    {{publication.title}}
-                    <span>{{publication.countOfLikes}}</span>
-
-                </h4>
-                <div>{{publication.textOfBlog}}</div>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit quidem obcaecati at explicabo officia
-                vitae! Aperiam enim veniam officia reiciendis et quos, fuga repellendus corporis, dicta vel ipsum error
-                iure!
-
-               
-            </a>
-            <button *ngIf="checkAuth" class="button" (click)="remove(publication)">remove</button>
-        </div>
-
-
+<section class="list">
+  <div class="row">
+    <div class="column-lg-3 list-of-categories">
+      <button class="list-of-categories__button" (click)="changeCategory()">
+        Home
+      </button>
+      <button
+        class="list-of-categories__button"
+        *ngFor="let cat of categories"
+        [class.active]="cat == selectedCategory"
+        (click)="changeCategory(cat)"
+      >
+        {{ cat }}
+      </button>
     </div>
-    <footer >
-        <form *ngIf="checkAuth" (ngSubmit)="submit()" novalidate [formGroup]="form">
-            <div class="form-group">
-                <label>Название</label>
-                <input class="form-control" name="title" formControlName="title">
-            </div>
-            <div class="form-group">
-                <label>текст блога</label>
-                <input class="form-control" name="textOfBlog" formControlName="textOfBlog">
-            </div>
-            <div class="form-group">
-                <label>категория</label>
-                <input class="form-control" name="category" formControlName="category">
-            </div>
-            <div class="form-group">
-                <button class="button"
-                type="submit"
-                class="btn btn-primary btn-block"
-                [disabled]="form.invalid"
-                >Add</button>
-            </div>
+    <div class="column-lg-9 list-of-publications">
+      <div
+        class="list-of-publication__card"
+        *ngFor="let publication of publications"
+      >
+        <a
+          class="list-of-publication__link"
+          [routerLink]="['/list', publication.id]"
+        >
+          <h2 class="list-of-publication__title">
+            {{ publication.title }}
+            <span>{{ getCountOfLikes(publication) }}</span>
+          </h2>
+        </a>
 
-        </form>
-        <button (click)="goToLogin()">логин</button>
-    </footer>
-</div>
+        <button
+          class="list-of-publication__button"
+          *ngIf="checkAuth"
+          (click)="remove(publication)"
+        >
+          remove
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <form *ngIf="checkAuth" (ngSubmit)="submit()" novalidate [formGroup]="form">
+    <div class="form-group">
+      <label>Название</label>
+      <input class="form-control" name="title" formControlName="title" />
+    </div>
+    <div class="form-group">
+      <label>текст блога</label>
+      <input
+        class="form-control"
+        name="textOfBlog"
+        formControlName="textOfBlog"
+      />
+    </div>
+    <div class="form-group">
+      <label>категория</label>
+      <input class="form-control" name="category" formControlName="category" />
+    </div>
+    <div class="form-group">
+      <button class="" type="submit" class="" [disabled]="form.invalid">
+        Add
+      </button>
+    </div>
+  </form>
+</footer>
