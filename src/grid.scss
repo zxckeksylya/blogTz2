@@ -1,0 +1,37 @@
+//@import 'utils';
+
+$columns: 12;
+$gutter: 30px;
+$gutter-column: $gutter / 2;
+$adaptive-breakpoints: (
+  'sm': 576px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1200px,
+);
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.column,
+[class^='column-'] {
+  position: relative;
+  width: 100%;
+  padding-right: $gutter-column;
+  padding-left: $gutter-column;
+}
+
+@each $size in map-keys($adaptive-breakpoints) {
+  @media (min-width: map_get($adaptive-breakpoints, $size)) {
+    @for $i from 1 through $columns {
+      .column-#{$size}-#{$i} {
+        flex: 0 0 percentage($i / $columns);
+        max-width: percentage($i / $columns);
+      }
+    }
+  }
+}
