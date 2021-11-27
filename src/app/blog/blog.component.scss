@@ -1,0 +1,50 @@
+.header{
+    background: var(--second--base--background--color);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    &__wrapper{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__logo{
+        color: var(--base--background--color);
+    }
+}
+
+.publication{
+    &__title{
+        color:var(--title--color);
+        margin-bottom: 20px;
+    }
+    &__coment{
+        button{
+            padding: 10px 15px;
+            border:1px solid red;
+            border-radius: 10px;
+            background-color: red;
+            color:#fff;
+            transition: all .4s ease;
+            &:hover{
+                background-color: #fff;
+                color: red;
+            }
+        }
+    }
+
+}
+.like{
+    padding: 5px 10px;
+    border: 1px solid #535353;
+    background:#c3c3c3;
+    color:#535353;
+    border-radius: 5px;
+}
+.liked{
+    border: 1px solid red;
+    padding: 5px 10px;
+    background: red;
+    color:#fff;
+    border-radius: 5px;
+}

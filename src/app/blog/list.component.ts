@@ -51,11 +51,11 @@ export class ListComponent {
   }
   submit() {
     console.log(this.form);
-    const { title, textOfBlog, category } = this.form.value;
+    const { title, category,textOfBlog } = this.form.value;
     const publication: Publication = {
       title,
-      textOfBlog,
       category,
+      textOfBlog,
       idOfAuthor: this.userRepository.getAuthUser().id,
       likes:[],
       coments:[]

@@ -1,12 +1,43 @@
-{{publication.title}}
-<div *ngFor="let p of coments">
-    <span>{{p.textOfComent}}</span>
-    <br>
-    <button *ngIf="checkAuth" class="button" (click)="remove(p)">remove</button>
+
+<section class="header">
+  <div class="row">
+    <div class="column-12 header__wrapper">
+      <h1 class="header__logo">Publication</h1>
+    </div>
+  </div>
+</section>
+<div class="publication">
+    <h2 class="publication__title">
+        {{publication.title}}
+    </h2>
+    <p class="publication__textOfPublication">
+        {{publication.textOfBlog}}
+    </p>
+    <div class="publication__coment" *ngFor="let p of coments">
+        <span>{{p.textOfComent}}</span>
+        <br>
+        <button *ngIf="checkAuth" class="button" (click)="remove(p)">remove</button>
+    </div>
+    <div class="publication__likes">
+        <label>количество лайков</label>
+        {{countOfLikes}}
+        <div *ngIf="checkAuth">
+            <div *ngIf="liked(); then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock>
+                <button  class="like" (click)="changeLike()">
+                    like
+                </button> 
+            </ng-template>
+            <ng-template #elseBlock>
+                <button  class="liked" (click)="changeLike()">
+                    liked
+                </button> 
+            </ng-template>
+        </div>
+    </div>
 </div>
-<label>количество лайков</label>
-{{countOfLikes}}
-<button *ngIf="checkAuth" class="button" (click)="changeLike()">like</button>
+
+
 <form *ngIf="checkAuth" (ngSubmit)="submit()" novalidate [formGroup]="form">
     <div class="form-group">
         <label>Коментарий</label>
@@ -15,7 +46,6 @@
     <div class="form-group">
         <button class="button"
         type="submit"
-        class="btn btn-primary btn-block"
         [disabled]="form.invalid"
         >Add</button>
     </div>

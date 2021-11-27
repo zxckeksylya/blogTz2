@@ -12,7 +12,10 @@ import { Like } from '../model/like.model';
 @Component({
   //selector:"blog",
   //moduleId:module.id,
+
   templateUrl: 'blog.component.html',
+  styleUrls:["blog.component.scss"]
+
 })
 export class BlogComponent {
   publication: Publication = new Publication();
@@ -63,6 +66,11 @@ export class BlogComponent {
   goBack(): void {
     this.router.navigateByUrl('/list');
   }
+
+  liked():boolean{
+    return (this.publication.likes?.find(p=>p.idOfAuthor==this.userRepository.getAuthUser().id)==undefined);
+  }
+
   changeLike(): void {
        if(this.publication.likes?.find(p=>p.idOfAuthor==this.userRepository.getAuthUser().id)==undefined){
            const like:Like={

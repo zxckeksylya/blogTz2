@@ -49,26 +49,22 @@
   </div>
 </section>
 
-<footer>
+<footer class="form">
   <form *ngIf="checkAuth" (ngSubmit)="submit()" novalidate [formGroup]="form">
     <div class="form-group">
       <label>Название</label>
       <input class="form-control" name="title" formControlName="title" />
     </div>
     <div class="form-group">
-      <label>текст блога</label>
-      <input
-        class="form-control"
-        name="textOfBlog"
-        formControlName="textOfBlog"
-      />
-    </div>
-    <div class="form-group">
       <label>категория</label>
       <input class="form-control" name="category" formControlName="category" />
     </div>
     <div class="form-group">
-      <button class="" type="submit" class="" [disabled]="form.invalid">
+      <label>текст блога</label>
+      <textarea class="form-control" name="textOfBlog" cols="30" rows="10"formControlName="textOfBlog" ></textarea>
+    </div>
+    <div class="form-group">
+      <button class="form__button_submit" type="submit" class="" [disabled]="form.invalid">
         Add
       </button>
     </div>
