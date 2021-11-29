@@ -6,6 +6,7 @@ import { Publication } from '../model/publication.model';
 import { PublicationRepository } from '../model/publication.repository';
 import { UserRepository } from '../model/user.repository';
 import { Coment } from '../model/coment.model';
+import { DateService } from '../model/date.service';
 
 export interface Task {
   //id?:string
@@ -25,7 +26,8 @@ export class ListComponent {
   constructor(
     private repository: PublicationRepository,
     private router: Router,
-    private userRepository: UserRepository
+    private userRepository: UserRepository,
+    private dateService:DateService
   ) {
     this.form = new FormGroup({
       title: new FormControl('', Validators.required),
@@ -57,6 +59,7 @@ export class ListComponent {
       category,
       textOfBlog,
       idOfAuthor: this.userRepository.getAuthUser().id,
+      dateOfCreated: this.dateService.date.value.format('YYYY-MM-DD'),
       likes:[],
       coments:[]
     };

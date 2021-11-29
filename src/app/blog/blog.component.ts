@@ -8,6 +8,7 @@ import { Coment } from '../model/coment.model';
 import { DataService } from '../model/data.service';
 import { UserRepository } from '../model/user.repository';
 import { Like } from '../model/like.model';
+import { DateService } from '../model/date.service';
 
 @Component({
   //selector:"blog",
@@ -25,6 +26,7 @@ export class BlogComponent {
     private repositry: PublicationRepository,
     private router: Router,
     activeRoute: ActivatedRoute,
+    private dateService:DateService,
     private dataService: DataService,
     private userRepository: UserRepository
   ) {
@@ -53,6 +55,7 @@ export class BlogComponent {
     const coment: Coment = {
       textOfComent,
       idOfAuthor: this.userRepository.getAuthUser().id,
+      dateOfCreated: this.dateService.date.value.format('YYYY-MM-DD'),
     };
     this.dataService.saveComment(this.publication, coment).subscribe(
       (p) => {
@@ -74,7 +77,8 @@ export class BlogComponent {
   changeLike(): void {
        if(this.publication.likes?.find(p=>p.idOfAuthor==this.userRepository.getAuthUser().id)==undefined){
            const like:Like={
-            idOfAuthor: this.userRepository.getAuthUser().id
+            idOfAuthor: this.userRepository.getAuthUser().id,
+            dateOfCreated: this.dateService.date.value.format('YYYY-MM-DD'),
            }
            this.dataService.saveLike(this.publication,like).subscribe(
                p=>{

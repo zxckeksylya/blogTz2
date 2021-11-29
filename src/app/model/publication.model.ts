@@ -8,6 +8,7 @@ export class Publication{
         public category?:string,
         public textOfBlog?:string,
         public idOfAuthor?:string,
+        public dateOfCreated?:string,
         public coments?:Coment[],
         public likes?:Like[],
     ){}
