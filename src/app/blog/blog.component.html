@@ -13,6 +13,20 @@
     <p class="publication__textOfPublication">
         {{publication.textOfBlog}}
     </p>
+    <br>
+    <form *ngIf="checkAuth" (ngSubmit)="submit()" novalidate [formGroup]="form">
+        <div class="form-group">
+            <label>Коментарий</label>
+            <input class="form-control" name="textOfComent" formControlName="textOfComent">
+        </div>
+        <div class="form-group">
+            <button class="button"
+            type="submit"
+            [disabled]="form.invalid"
+            >Add</button>
+        </div>
+    </form>
+    <br>
     <div class="publication__coment" *ngFor="let p of coments">
         <span>{{p.textOfComent}}</span>
         <br>
@@ -38,18 +52,6 @@
 </div>
 
 
-<form *ngIf="checkAuth" (ngSubmit)="submit()" novalidate [formGroup]="form">
-    <div class="form-group">
-        <label>Коментарий</label>
-        <input class="form-control" name="textOfComent" formControlName="textOfComent">
-    </div>
-    <div class="form-group">
-        <button class="button"
-        type="submit"
-        [disabled]="form.invalid"
-        >Add</button>
-    </div>
 
-</form>
 
 <button (click)="goBack()"> back</button>
